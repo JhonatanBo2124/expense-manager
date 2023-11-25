@@ -5,3 +5,13 @@
 html {
     background-color: #272727;
 }
+
+@layer utilities {
+    .clip-login {
+        clip-path: polygon(0 0, 45% 0, 62% 100%, 0% 100%);
+    }
+    .text-underline-stroke {
+        -webkit-text-stroke: 1px #fff;
+        color: transparent;
+    }
+}
