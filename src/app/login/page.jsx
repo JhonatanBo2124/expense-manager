@@ -1,14 +1,17 @@
 'use client'
 
+import { GoogleOAuthProvider, GoogleLogin, CredentialResponse } from '@react-oauth/google'
 import { IconEye, IconEyeOff } from '@tabler/icons-react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function login () {
 
     const [ showPass, setShowPass ] = useState(false)
+    const navigate = useNavigate()
 
     return(
-        <>
+        <GoogleOAuthProvider clientId='830167185295-o5s3b8hnjae0gk3f69ga3kbbipav0dfg.apps.googleusercontent.com'>
         <div className="font-['Oswald'] h-screen w-screen flex items-center justify-center">
             <div className="w-3/5 rounded-xl flex bg-slate-100">
                 <img className="w-3/5 rounded-l-xl" src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="backgroundLogin" />
@@ -27,13 +30,25 @@ export default function login () {
                             </div>
                             <button type='submit' className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-800">Login</button>
                             <p className="w-full text-center">or</p>
-                            <a className="p-2 flex gap-5 border-2 rounded-md hover:bg-slate-200 hover:text-black" href=""><img src="https://freesvg.org/img/1534129544.png" alt="" className="w-6" />Sign in with Google</a>
+                            {/* <a className="p-2 flex gap-5 border-2 rounded-md hover:bg-slate-200 hover:text-black" href=""><img src="https://freesvg.org/img/1534129544.png" alt="" className="w-6" />Sign in with Google</a> */}
+                            <div>
+                                <GoogleLogin
+                                    onSuccess={(credentialResponse) => {
+                                        console.log(credentialResponse);
+                                        navigate('/')
+
+                                    }}
+                                    onError={() => {
+                                        console.log('Login Failed');
+                                    }}
+                                />
+                            </div>
                             <a className="text-blue-500 decoration-blue-600" href="/signup">Sign up</a>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        </>
+        </GoogleOAuthProvider>
     )
 }
